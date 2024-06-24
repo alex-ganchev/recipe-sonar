@@ -2,7 +2,6 @@ package digitalrazgrad.recipes.service;
 
 import digitalrazgrad.recipes.entity.Product;
 import digitalrazgrad.recipes.repository.ProductRepository;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.Optional;
