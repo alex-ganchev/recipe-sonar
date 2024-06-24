@@ -1,0 +1,59 @@
+body {
+      background-image: url('../images/background.jpg');
+      height: 100vh;
+      background-size: cover;
+      background-position: center;
+}
+.my-custom-scrollbar {
+position: relative;
+height: 500px;
+overflow: auto;
+}
+.table-wrapper-scroll-y {
+display: block;
+}
+.btn-block {
+    width: 110px;
+}
+.btn-form {
+    width: 150px;
+}
+
+th {
+
+  position: sticky;
+  top: 0;
+}
+div.message {
+  display: inline-block;
+  float: right;
+  color:white;
+  opacity: 0;
+  animation: fade-in 0s ease-in forwards, fade-out 2s 2s ease-out forwards;
+}
+div.savemessage {
+  color:white;
+  padding-top: 12px;
+  opacity: 0;
+  animation: fade-in 0s ease-in forwards, fade-out 2s 2s ease-out forwards;
+}
+div.deletemessage {
+  color:white;
+  padding-top: 12px;
+  opacity: 0;
+  animation: fade-in 0s ease-in forwards, fade-out 2s 2s ease-out forwards;
+}
+
+@keyframes fade-in {
+  100% {
+    opacity: 1;
+  }
+}
+
+@keyframes fade-out {
+  0% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+  }
