@@ -38,7 +38,7 @@ public class RecipeController {
         return "/recipe/add";
     }
 
-    @RequestMapping("/add")
+    @PostMapping("/add")
     private String addRecipe(@Valid @ModelAttribute Recipe recipe, BindingResult bindingResult, Model model) {
         return recipeService.addRecipe(recipe, bindingResult, model);
     }
