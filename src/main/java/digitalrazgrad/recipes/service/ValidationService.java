@@ -9,8 +9,11 @@ import java.util.Optional;
 
 @Service
 public class ValidationService {
-    @Autowired
     ProductRepository productRepository;
+
+    public ValidationService(ProductRepository productRepository) {
+        this.productRepository = productRepository;
+    }
 
     public String checkSaveSuccess(Object object) {
         if (object != null) {
