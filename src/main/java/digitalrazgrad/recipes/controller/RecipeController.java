@@ -31,7 +31,7 @@ public class RecipeController {
     }
 
     @GetMapping("/add")
-    private String addRecipe(Model model) {
+    public String addRecipe(Model model) {
         model.addAttribute("recipe", new Recipe());
         model.addAttribute("productList", productRepository.findAll());
         model.addAttribute("typeList", DishType.values());
@@ -39,18 +39,18 @@ public class RecipeController {
     }
 
     @PostMapping("/add")
-    private String addRecipe(@Valid @ModelAttribute Recipe recipe, BindingResult bindingResult, Model model) {
+    public String addRecipe(@Valid @ModelAttribute Recipe recipe, BindingResult bindingResult, Model model) {
         return recipeService.addRecipe(recipe, bindingResult, model);
     }
 
     @GetMapping("/list")
-    private String listAllRecipes(Model model) {
+    public String listAllRecipes(Model model) {
         model.addAttribute("recipesList", recipeRepository.findAll());
         return "/recipe/list";
     }
 
     @PostMapping("/delete")
-    private String deleteRecipe(@RequestParam Long id, Model model) {
+    public String deleteRecipe(@RequestParam Long id, Model model) {
         recipeRepository.deleteById(id);
         model.addAttribute("message", validationService.checkDeleteSuccess(recipeRepository.existsById(id)));
         model.addAttribute("recipesList", recipeRepository.findAll());
@@ -58,12 +58,12 @@ public class RecipeController {
     }
 
     @GetMapping("/edit")
-    private String editRecipe(@RequestParam Long id, Model model) {
+    public String editRecipe(@RequestParam Long id, Model model) {
         return recipeService.editRecipe(id, model);
     }
 
     @PostMapping("/edit")
-    private String editRecipe(@Valid @ModelAttribute Recipe recipe, BindingResult bindingResult, Model model) {
+    public String editRecipe(@Valid @ModelAttribute Recipe recipe, BindingResult bindingResult, Model model) {
         return recipeService.editRecipe(recipe, bindingResult, model);
     }
 }

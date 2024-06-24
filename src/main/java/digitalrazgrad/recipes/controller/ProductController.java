@@ -25,35 +25,35 @@ public class ProductController {
     }
 
     @GetMapping("/add")
-    private String addProduct(Model model) {
+    public String addProduct(Model model) {
         model.addAttribute("product", new Product());
         model.addAttribute("typeList", ProductType.values());
         return "product/add";
     }
 
     @PostMapping("/add")
-    private String addProduct(@Valid @ModelAttribute Product product, BindingResult bindingResult, Model model) {
+    public String addProduct(@Valid @ModelAttribute Product product, BindingResult bindingResult, Model model) {
         return productService.addProduct(product, bindingResult, model);
     }
 
     @GetMapping("/list")
-    private String listAllProducts(Model model) {
+    public String listAllProducts(Model model) {
         model.addAttribute("productsList", productRepository.findAll());
         return "/product/list";
     }
 
     @PostMapping("/delete")
-    private String deleteProduct(@RequestParam Long id, Model model) {
+    public String deleteProduct(@RequestParam Long id, Model model) {
         return productService.deleteProduct(id, model);
     }
 
     @GetMapping("/edit")
-    private String editProduct(@RequestParam Long id, Model model) {
+    public String editProduct(@RequestParam Long id, Model model) {
         return productService.editProduct(id, model);
     }
 
     @PostMapping("/edit")
-    private String editProduct(@Valid @ModelAttribute Product product, BindingResult bindingResult, Model model) {
+    public String editProduct(@Valid @ModelAttribute Product product, BindingResult bindingResult, Model model) {
         return productService.editProduct(product, bindingResult, model);
     }
 }
