@@ -15,6 +15,8 @@ public class ProductService {
     private ProductRepository productRepository;
     private static final ProductType[] productTypeList = ProductType.values();
     private static final String TYPE_LIST = "typeList";
+    private static final String PRODUCT_LIST = "productList";
+    private static final String MESSAGE = "message";
 
     public ProductService(ValidationService validationService, ProductRepository productRepository) {
         this.validationService = validationService;
@@ -27,7 +29,7 @@ public class ProductService {
             model.addAttribute("duplicate_message", bindingResult.hasErrors() ? null : "Вече има продукт с това име!");
             return "product/add";
         }
-        model.addAttribute("message", validationService.checkSaveSuccess(productRepository.save(product)));
+        model.addAttribute(MESSAGE, validationService.checkSaveSuccess(productRepository.save(product)));
         model.addAttribute("product", new Product());
         model.addAttribute(TYPE_LIST, productTypeList);
         return "/product/add";
@@ -36,12 +38,12 @@ public class ProductService {
     public String deleteProduct(Long id, Model model) {
         if (validationService.checkSafeDelete(id)) {
             productRepository.deleteById(id);
-            model.addAttribute("message", validationService.checkDeleteSuccess(productRepository.existsById(id)));
-            model.addAttribute("productsList", productRepository.findAll());
+            model.addAttribute(MESSAGE, validationService.checkDeleteSuccess(productRepository.existsById(id)));
+            model.addAttribute(PRODUCT_LIST, productRepository.findAll());
             return ("/product/list");
         }
         model.addAttribute("safe_delete_message", "Продукта участва в рецепта и не може да бъде изтрит!");
-        model.addAttribute("productsList", productRepository.findAll());
+        model.addAttribute(PRODUCT_LIST, productRepository.findAll());
         return ("/product/list");
     }
 
@@ -62,7 +64,7 @@ public class ProductService {
             model.addAttribute("duplicate_message", bindingResult.hasErrors() ? null : "Вече има продукт с това име!");
             return "product/edit";
         }
-        model.addAttribute("message", validationService.checkSaveSuccess(productRepository.save(product)));
+        model.addAttribute(MESSAGE, validationService.checkSaveSuccess(productRepository.save(product)));
         return "redirect:/product/list";
     }
 }

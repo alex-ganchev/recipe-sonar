@@ -19,6 +19,8 @@ public class RecipeService {
     private ValidationService validationService;
     private static final DishType[] dishTypeList = DishType.values();
     private static final String TYPE_LIST = "typeList";
+    private static final String PRODUCT_LIST = "productList";
+    private static final String MESSAGE = "message";
 
     public RecipeService(ProductRepository productRepository, RecipeRepository recipeRepository, ValidationService validationService) {
         this.productRepository = productRepository;
@@ -28,14 +30,14 @@ public class RecipeService {
 
     public String addRecipe(Recipe recipe, BindingResult bindingResult, Model model) {
         if (bindingResult.hasErrors()) {
-            model.addAttribute("productList", productRepository.findAll());
+            model.addAttribute(PRODUCT_LIST, productRepository.findAll());
             model.addAttribute(TYPE_LIST, dishTypeList);
             return "/recipe/add";
         }
         recipe.setRating(calculateRecipeRating(recipe));
-        model.addAttribute("message", validationService.checkSaveSuccess(recipeRepository.save(recipe)));
+        model.addAttribute(MESSAGE, validationService.checkSaveSuccess(recipeRepository.save(recipe)));
         model.addAttribute("recipe", new Recipe());
-        model.addAttribute("productList", productRepository.findAll());
+        model.addAttribute(PRODUCT_LIST, productRepository.findAll());
         model.addAttribute(TYPE_LIST, dishTypeList);
         return "/recipe/add";
     }
@@ -45,7 +47,7 @@ public class RecipeService {
         if (optionalRecipe.isPresent()) {
             Recipe recipe = optionalRecipe.get();
             model.addAttribute("recipe", recipe);
-            model.addAttribute("productList", productRepository.findAll());
+            model.addAttribute(PRODUCT_LIST, productRepository.findAll());
             model.addAttribute(TYPE_LIST, dishTypeList);
             return "/recipe/edit";
         }
@@ -54,12 +56,12 @@ public class RecipeService {
 
     public String editRecipe(Recipe recipe, BindingResult bindingResult, Model model) {
         if (bindingResult.hasErrors()) {
-            model.addAttribute("productList", productRepository.findAll());
+            model.addAttribute(PRODUCT_LIST, productRepository.findAll());
             model.addAttribute(TYPE_LIST, dishTypeList);
             return "/recipe/edit";
         }
         recipe.setRating(calculateRecipeRating(recipe));
-        model.addAttribute("message", validationService.checkSaveSuccess(recipeRepository.save(recipe)));
+        model.addAttribute(MESSAGE, validationService.checkSaveSuccess(recipeRepository.save(recipe)));
         return "redirect:/recipe/list";
     }
 
