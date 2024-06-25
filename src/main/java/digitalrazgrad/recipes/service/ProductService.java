@@ -17,6 +17,7 @@ public class ProductService {
     private static final String TYPE_LIST = "typeList";
     private static final String PRODUCT_LIST = "productList";
     private static final String MESSAGE = "message";
+    private static final String TEMPLATE_PRODUCT_LIST = "/product/list";
 
     public ProductService(ValidationService validationService, ProductRepository productRepository) {
         this.validationService = validationService;
@@ -40,11 +41,11 @@ public class ProductService {
             productRepository.deleteById(id);
             model.addAttribute(MESSAGE, validationService.checkDeleteSuccess(productRepository.existsById(id)));
             model.addAttribute(PRODUCT_LIST, productRepository.findAll());
-            return ("/product/list");
+            return (TEMPLATE_PRODUCT_LIST);
         }
         model.addAttribute("safe_delete_message", "Продукта участва в рецепта и не може да бъде изтрит!");
         model.addAttribute(PRODUCT_LIST, productRepository.findAll());
-        return ("/product/list");
+        return (TEMPLATE_PRODUCT_LIST);
     }
 
     public String editProduct(Long id, Model model) {
@@ -55,7 +56,7 @@ public class ProductService {
             model.addAttribute(TYPE_LIST, productTypeList);
             return ("/product/edit");
         }
-        return ("/product/list");
+        return (TEMPLATE_PRODUCT_LIST);
     }
 
     public String editProduct(Product product, BindingResult bindingResult, Model model) {

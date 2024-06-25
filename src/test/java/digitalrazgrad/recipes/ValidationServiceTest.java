@@ -17,7 +17,7 @@ import java.util.*;
 import static org.mockito.Mockito.when;
 
 @ExtendWith(MockitoExtension.class)
-public class ValidationServiceTest {
+class ValidationServiceTest {
     @InjectMocks
     ValidationService validationService;
     @Mock

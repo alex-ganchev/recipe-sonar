@@ -7,13 +7,10 @@ import digitalrazgrad.recipes.entity.Recipe;
 import digitalrazgrad.recipes.repository.ProductRepository;
 import digitalrazgrad.recipes.repository.RecipeRepository;
 import jakarta.validation.Valid;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
-
-import java.util.Optional;
 
 @Controller
 @RequestMapping("/recipe")
