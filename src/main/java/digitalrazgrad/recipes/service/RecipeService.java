@@ -66,61 +66,77 @@ public class RecipeService {
     }
 
     public int calculateRecipeRating(Recipe recipe) {
-        int raiting = 3;
+        int rating = 3;
         switch (recipe.getDishType()) {
             case SOUP: {
-                for (Product product : recipe.getProductList()
-                ) {
-                    if (product.getType().equals(ProductType.VEGETABLE)) {
-                        raiting++;
-                    }
-                    else if (product.getType().equals(ProductType.FRUIT)) {
-                        raiting -= 2;
-                    }
-                }
+                rating = calculateRatingCaseSoup(rating, recipe);
                 break;
             }
             case SALAD: {
-                for (Product product : recipe.getProductList()
-                ) {
-                    if (product.getType().equals(ProductType.VEGETABLE) || product.getType().equals(ProductType.FRUIT)) {
-                        raiting++;
-                    }
-
-                }
+                rating = calculateRatingCaseSalad(rating, recipe);
                 break;
             }
             case DESSERT: {
-                for (Product product : recipe.getProductList()
-                ) {
-                    if (product.getName().equalsIgnoreCase("шоколад")){
-                        raiting += 3;
-                    }
-                    if (product.getType().equals(ProductType.VEGETABLE)) {
-                        raiting -= 2;
-                    }
-                    else if (product.getType().equals(ProductType.FRUIT)) {
-                        raiting++;
-                    }
-                }
+                rating = calculateRatingCaseDesert(rating, recipe);
                 break;
             }
             default: {
-                for (Product product : recipe.getProductList()
-                ) {
-                    if (product.getType().equals(ProductType.VEGETABLE)) {
-                        raiting++;
-                    }
-                    else if (product.getType().equals(ProductType.FRUIT)) {
-                        raiting++;
-                    }
-                    else {
-                        raiting--;
-                    }
-                }
+                rating = calculateRatingCaseDefault(rating, recipe);
             }
             break;
         }
-        return raiting;
+        return rating;
+    }
+
+    private int calculateRatingCaseSoup(int rating, Recipe recipe) {
+        for (Product product : recipe.getProductList()
+        ) {
+            if (product.getType().equals(ProductType.VEGETABLE)) {
+                rating++;
+            } else if (product.getType().equals(ProductType.FRUIT)) {
+                rating -= 2;
+            }
+        }
+        return rating;
+    }
+
+    private int calculateRatingCaseSalad(int rating, Recipe recipe) {
+        for (Product product : recipe.getProductList()
+        ) {
+            if (product.getType().equals(ProductType.VEGETABLE) || product.getType().equals(ProductType.FRUIT)) {
+                rating++;
+            }
+
+        }
+        return rating;
+    }
+
+    private int calculateRatingCaseDesert(int rating, Recipe recipe) {
+        for (Product product : recipe.getProductList()
+        ) {
+            if (product.getName().equalsIgnoreCase("шоколад")) {
+                rating += 3;
+            }
+            if (product.getType().equals(ProductType.VEGETABLE)) {
+                rating -= 2;
+            } else if (product.getType().equals(ProductType.FRUIT)) {
+                rating++;
+            }
+        }
+        return rating;
+    }
+
+    private int calculateRatingCaseDefault(int rating, Recipe recipe) {
+        for (Product product : recipe.getProductList()
+        ) {
+            if (product.getType().equals(ProductType.VEGETABLE)) {
+                rating++;
+            } else if (product.getType().equals(ProductType.FRUIT)) {
+                rating++;
+            } else {
+                rating--;
+            }
+        }
+        return rating;
     }
 }

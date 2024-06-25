@@ -41,7 +41,7 @@ public class ProductService {
             productRepository.deleteById(id);
             model.addAttribute(MESSAGE, validationService.checkDeleteSuccess(productRepository.existsById(id)));
             model.addAttribute(PRODUCT_LIST, productRepository.findAll());
-            return (TEMPLATE_PRODUCT_LIST);
+            return "redirect:/product/list";
         }
         model.addAttribute("safe_delete_message", "Продукта участва в рецепта и не може да бъде изтрит!");
         model.addAttribute(PRODUCT_LIST, productRepository.findAll());
