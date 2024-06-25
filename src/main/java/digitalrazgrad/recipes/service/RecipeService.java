@@ -18,6 +18,7 @@ public class RecipeService {
     private RecipeRepository recipeRepository;
     private ValidationService validationService;
     private static final DishType[] dishTypeList = DishType.values();
+    private static final String TYPE_LIST = "typeList";
 
     public RecipeService(ProductRepository productRepository, RecipeRepository recipeRepository, ValidationService validationService) {
         this.productRepository = productRepository;
@@ -28,14 +29,14 @@ public class RecipeService {
     public String addRecipe(Recipe recipe, BindingResult bindingResult, Model model) {
         if (bindingResult.hasErrors()) {
             model.addAttribute("productList", productRepository.findAll());
-            model.addAttribute("typeList", dishTypeList);
+            model.addAttribute(TYPE_LIST, dishTypeList);
             return "/recipe/add";
         }
         recipe.setRating(calculateRecipeRating(recipe));
         model.addAttribute("message", validationService.checkSaveSuccess(recipeRepository.save(recipe)));
         model.addAttribute("recipe", new Recipe());
         model.addAttribute("productList", productRepository.findAll());
-        model.addAttribute("typeList", dishTypeList);
+        model.addAttribute(TYPE_LIST, dishTypeList);
         return "/recipe/add";
     }
 
@@ -45,7 +46,7 @@ public class RecipeService {
             Recipe recipe = optionalRecipe.get();
             model.addAttribute("recipe", recipe);
             model.addAttribute("productList", productRepository.findAll());
-            model.addAttribute("typeList", dishTypeList);
+            model.addAttribute(TYPE_LIST, dishTypeList);
             return "/recipe/edit";
         }
         return "/recipe/list";
@@ -54,7 +55,7 @@ public class RecipeService {
     public String editRecipe(Recipe recipe, BindingResult bindingResult, Model model) {
         if (bindingResult.hasErrors()) {
             model.addAttribute("productList", productRepository.findAll());
-            model.addAttribute("typeList", dishTypeList);
+            model.addAttribute(TYPE_LIST, dishTypeList);
             return "/recipe/edit";
         }
         recipe.setRating(calculateRecipeRating(recipe));

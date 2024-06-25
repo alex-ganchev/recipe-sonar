@@ -14,7 +14,7 @@ public class ProductService {
     private ValidationService validationService;
     private ProductRepository productRepository;
     private static final ProductType[] productTypeList = ProductType.values();
-    private static final String typeList = "typeList";
+    private static final String TYPE_LIST = "typeList";
 
     public ProductService(ValidationService validationService, ProductRepository productRepository) {
         this.validationService = validationService;
@@ -23,13 +23,13 @@ public class ProductService {
 
     public String addProduct(Product product, BindingResult bindingResult, Model model) {
         if (bindingResult.hasErrors() || validationService.checkDuplicateProductName(product)) {
-            model.addAttribute(typeList, productTypeList);
+            model.addAttribute(TYPE_LIST, productTypeList);
             model.addAttribute("duplicate_message", bindingResult.hasErrors() ? null : "Вече има продукт с това име!");
             return "product/add";
         }
         model.addAttribute("message", validationService.checkSaveSuccess(productRepository.save(product)));
         model.addAttribute("product", new Product());
-        model.addAttribute(typeList, productTypeList);
+        model.addAttribute(TYPE_LIST, productTypeList);
         return "/product/add";
     }
 
@@ -50,7 +50,7 @@ public class ProductService {
         if (optionalProduct.isPresent()) {
             Product product = optionalProduct.get();
             model.addAttribute("product", product);
-            model.addAttribute(typeList, productTypeList);
+            model.addAttribute(TYPE_LIST, productTypeList);
             return ("/product/edit");
         }
         return ("/product/list");
@@ -58,7 +58,7 @@ public class ProductService {
 
     public String editProduct(Product product, BindingResult bindingResult, Model model) {
         if (bindingResult.hasErrors() || validationService.checkDuplicateProductName(product)) {
-            model.addAttribute(typeList, productTypeList);
+            model.addAttribute(TYPE_LIST, productTypeList);
             model.addAttribute("duplicate_message", bindingResult.hasErrors() ? null : "Вече има продукт с това име!");
             return "product/edit";
         }
